@@ -1,0 +1,86 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <title>Hands On Session 2</title>
+
+</head>
+
+<body class="text-center">
+    <table class="table table-sm w-25" style="margin: 20px auto;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nama</th>
+          <th scope="col">Age</th>
+        </tr>
+      </thead>
+      <tbody id="dataStudents" >
+
+      </tbody>
+    </table>
+    Rata-Rata Umur Students Adalah <p id="avgAge"></p>
+    <button type="button" onclick="document.getElementById('avgAge').innerHTML = calculateAvgAge(students)">Average</button>
+</body>
+<script>
+  const students = [{
+      name: "Alice",
+      age: 20
+    },
+    {
+      name: "Bob",
+      age: 21
+    },
+    {
+      name: "Jane",
+      age: 20
+    }
+  ];
+
+
+  //function to show data Students.
+  const tableDataStudents = () => {
+    students.forEach(({
+      name,
+      age
+    }) => {
+      let html = `<td>${name}</td><td>${age}</td>`;
+      document.getElementById("dataStudents").insertRow().innerHTML = html;
+    });
+  };
+  tableDataStudents();
+
+  // function to calculate avg age
+  const calculateAvgAge = (students) => {
+    const total = students.reduce((acc, student) => acc + student.age, 0);
+    const avg = total / students.length;
+    
+    const wait = (time) => {
+      return new Promise((resolve) =>{
+        setTimeout(resolve, time)
+      })
+    }
+    
+    async function asyncawait (){
+      console.log("calculate start");
+      console.log("second call started");
+      await wait(2000)
+        .then(() => console.log("second call finished"))
+        .then(() => console.log("third call started"));
+      await wait(2000)
+        .then(() => console.log(avg))
+        .then(() => console.log("third call finished"));
+    }
+    
+    asyncawait();
+    
+    return avg; 
+  };
+
+
+</script>
+
+</html>
