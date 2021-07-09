@@ -31,17 +31,34 @@
 
     <div class="card">
         <img src="https://pbs.twimg.com/media/EvE2q_CVgAoVjp2?format=jpg&name=large" width="200px">
-        <p>Track Title</p>
-        <p>Artist</p>
-        <p>Album</p>
+        <p id="track-Title"></p>
+        <p id="track-Artist"></p>
+        <p id="track-Album"></p>
         <button type="button">Select</button>
     </div>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         function sweetAlert() 
         {  
             alert("Goodjob!")
         }
+
+        axios
+            .get(
+                "https://gist.githubusercontent.com/aryapradipta9/e6492383477803b233916e01f36d5465/raw/66942c739d66d3774303f84071696aa865a07077/single-sample.json"
+                )
+            .then(function (response) {
+                console.log(response.data);
+
+                document.getElementById("track-Title").innerHTML = `Track Title: ${response.data.name}`
+                document.getElementById("track-Artist").innerHTML = `Track Artist: ${response.data.artists[0].name}`
+                document.getElementById("track-Album").innerHTML = `Track Album: ${response.data.album.name}`
+            })
+            .catch(function (error){
+                console.error(error);
+            })
+
     </script>
 
 </body>
