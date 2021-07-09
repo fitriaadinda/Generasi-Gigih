@@ -1,0 +1,65 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Playlist</title>
+    <style>
+        .card {
+            margin: 20px;
+            padding: 10px;
+            background-color: antiquewhite;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Create Playlist</h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="">Title</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label for="">Deskripsi</label>
+            <input type="text">
+        </div>
+        <button onclick="sweetAlert()">Submit</button>
+    </form>
+
+    <div class="card">
+        <img src="https://pbs.twimg.com/media/EvE2q_CVgAoVjp2?format=jpg&name=large" width="200px">
+        <p id="track-Title"></p>
+        <p id="track-Artist"></p>
+        <p id="track-Album"></p>
+        <button type="button">Select</button>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function sweetAlert() 
+        {  
+            alert("Goodjob!")
+        }
+
+        axios
+            .get(
+                "https://gist.githubusercontent.com/aryapradipta9/e6492383477803b233916e01f36d5465/raw/66942c739d66d3774303f84071696aa865a07077/single-sample.json"
+                )
+            .then(function (response) {
+                console.log(response.data);
+
+                document.getElementById("track-Title").innerHTML = `Track Title: ${response.data.name}`
+                document.getElementById("track-Artist").innerHTML = `Track Artist: ${response.data.artists[0].name}`
+                document.getElementById("track-Album").innerHTML = `Track Album: ${response.data.album.name}`
+            })
+            .catch(function (error){
+                console.error(error);
+            })
+
+    </script>
+
+</body>
+</html>
