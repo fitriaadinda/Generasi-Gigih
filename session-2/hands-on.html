@@ -52,32 +52,33 @@
     });
   };
   tableDataStudents();
+  
+  const wait = (time) => {
+    return new Promise((resolve) =>{
+      setTimeout(resolve, time)
+    })
+  }
 
   // function to calculate avg age
   const calculateAvgAge = (students) => {
-    const total = students.reduce((acc, student) => acc + student.age, 0);
-    const avg = total / students.length;
-    
-    const wait = (time) => {
-      return new Promise((resolve) =>{
-        setTimeout(resolve, time)
-      })
-    }
-    
-    async function asyncawait (){
+
       console.log("calculate start");
       console.log("second call started");
-      await wait(2000)
-        .then(() => console.log("second call finished"))
-        .then(() => console.log("third call started"));
-      await wait(2000)
-        .then(() => console.log(avg))
-        .then(() => console.log("third call finished"));
-    }
+      wait(2000)
+        .then(() => {
+          console.log("second call finished");
+          console.log("third call started");
+          return wait(3000)
+        })
+        .then(() => {
+          console.log("age is", avg);
+          console.log("third call finished");
+        })
     
-    asyncawait();
-    
-    return avg; 
+      const total = students.reduce((acc, student) => acc + student.age, 0);
+      const avg = total / students.length;
+
+    return avg;
   };
 
 
